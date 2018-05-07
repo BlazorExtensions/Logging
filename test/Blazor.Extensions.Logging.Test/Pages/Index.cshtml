@@ -1,0 +1,30 @@
+@page "/"
+@inject HttpClient Http
+@inject ILogger<Index> logger
+
+<h1>Logging Test, Open up your browser devtools to see the logs!</h1>
+
+@functions {
+    WeatherForecast[] forecasts;
+
+    protected override async Task OnInitAsync()
+    {
+        forecasts = await Http.GetJsonAsync<WeatherForecast[]>("/weather.json");
+
+        logger.LogTrace("Trace: Forecast");
+        logger.LogDebug("Debug: Forecast");
+        logger.LogWarning("Warning: Forecast");
+        logger.LogError("Error: Forecast");
+        logger.LogError(new Exception("Oh my, exception"), "Error: Forecast");
+        logger.LogCritical("Critical: Forecast");
+        logger.LogInformation(forecasts);
+    }
+
+    class WeatherForecast
+    {
+        public DateTime Date { get; set; }
+        public int TemperatureC { get; set; }
+        public int TemperatureF { get; set; }
+        public string Summary { get; set; }
+    }
+}
