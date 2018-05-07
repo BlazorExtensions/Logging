@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: microsoft/dotnet
+      - image: ptcos/docker-dotnet-node-sdk
     steps:
       - checkout
       - run:
