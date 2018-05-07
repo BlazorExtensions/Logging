@@ -60,10 +60,4 @@ function initialize() {
   });
 }
 
-//async function boot() {
-//  // Read startup config from the <script> element that's importing this file
-//  const allScriptElems = document.getElementsByTagName('script');
-//  const thisScriptElem = (document.currentScript || allScriptElems[allScriptElems.length - 1]) as HTMLScriptElement;
-//}
-
 initialize();

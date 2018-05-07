@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Authors>Blazor Extensions Contributors</Authors>
     <Product>Blazor Extensions</Product>
-    <Copyright>© Blazor Extensions Contributors. All rights reserved.</Copyright>
+    <Copyright>(c) Blazor Extensions Contributors. All rights reserved.</Copyright>
     <PackageLicenseUrl>https://github.com/BlazorExtensions/Logging#license</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/BlazorExtensions/Logging</PackageProjectUrl>
-    <PackageIconUrl>https://avatars2.githubusercontent.com/u/38994076?s%3D128%3Dv%3D4</PackageIconUrl>
-    <PackageTags>Microsoft Blazor Extensions Logging</PackageTags>
+    <PackageIconUrl>https://avatars2.githubusercontent.com/u/38994076?s%3D128%26v%3D4</PackageIconUrl>
+    <PackageTags>Microsoft ASP.NET Core Blazor Extensions Logging</PackageTags>
     <PackageReleaseNotes></PackageReleaseNotes>
     <RepositoryUrl>https://github.com/BlazorExtensions/Logging</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
@@ -30,7 +30,7 @@
 
   <!-- Versioning properties -->
   <PropertyGroup>
-    <VersionPrefix Condition=" '$(VersionPrefix)'=='' ">0.1.0</VersionPrefix>
+    <VersionPrefix Condition=" '$(VersionPrefix)'=='' ">0.1.1</VersionPrefix>
     <VersionSuffix Condition=" '$(VersionSuffix)'=='' ">dev</VersionSuffix>
   </PropertyGroup>
 
