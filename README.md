@@ -5,7 +5,7 @@
 
 # Blazor Extensions
 
-Blazor Extensions are a set of packages with the goal of adding useful things to [Blazor](https://blazor.net).
+Blazor Extensions is a set of packages with the goal of adding useful features to [Blazor](https://blazor.net).
 
 # Blazor Extensions Logging
 
