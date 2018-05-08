@@ -9,28 +9,26 @@ Blazor Extensions are a set of packages with the goal of adding useful things to
 
 # Blazor Extensions Logging
 
-This package is a implementation for the [Microsoft Extensions Logging](https://github.com/aspnet/Logging) abstraction to support
+This package is an implementation for the [Microsoft Extensions Logging](https://github.com/aspnet/Logging) abstraction to support
 using the ```ILogger``` interface in your Blazor code.
 
-When the component is configured, all the log statements will appear in the browser's developmer tool console.
+When the component is configured, all the log statements will appear in the browser's developer tools console.
 
 # Features
 
 ## Content to log
 
-The logger supports the same string formatting what MEL provides, altogether with named parameter replacement in the message.
+The logger supports the same string formatting that MEL provides, together with named parameter replacement in the message.
 
-In addition to that if you like to log an object then in the browser console you'll see an object displayed, and on that you can expand
-members, hierarchies to see what is in them.
+Additionaly, you're able to log an object in the browser console. You can expand members and hierachies to see what's contained within.
 
-If you want to log an enumerable list of objects, then the browser side component will display iy be calling ```console.table```.
+If you want to log an enumerable list of objects, then the browser side component will display it by calling ```console.table```.
 
 ## Filtering
 
 The implementation supports the ```ILoggerFactory``` based filtering configuration that is supplied by the Microsoft Extension Logging abstraction.
 
-To keep it lightweight [Microsoft Extensions Configuration](https://github.com/aspnet/Configuration) based configuration is not supported, the logger
-can be only configured in code.
+To keep it lightweight [Microsoft Extensions Configuration](https://github.com/aspnet/Configuration) based configuration is not supported, the logger can be only configured in code.
 
 ## Log levels
 
