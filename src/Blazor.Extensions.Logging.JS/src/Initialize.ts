@@ -32,10 +32,10 @@ function initialize() {
     var logMethod = console.log;
 
     // If we've a table, we'll print it as a table anyway, it is unlikely that the developer want to log errornous data as a table.
-    if (logObject.Type == LogObjectType.Table) {
+    if (logObject.type == LogObjectType.Table) {
       logMethod = console.table;
     } else {
-      switch (logObject.LogLevel) {
+      switch (logObject.logLevel) {
         case LogLevel.Trace:
           logMethod = console.trace;
           break;
@@ -52,10 +52,10 @@ function initialize() {
       }
     }
 
-    logMethod(logObject.Payload);
+    logMethod(logObject.payload);
 
-    if (logObject.Exception) {
-      logMethod("Exception: ", logObject.Exception);
+    if (logObject.exception) {
+      logMethod("Exception: ", logObject.exception);
     }
   });
 }

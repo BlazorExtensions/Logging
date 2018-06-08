@@ -1,8 +1,8 @@
 export type LogObject = {
-  LogLevel: LogLevel;
-  Type: LogObjectType;
-  Payload: any;
-  Exception: string;
+  logLevel: LogLevel;
+  type: LogObjectType;
+  payload: any;
+  exception: string;
 }
 
 // Enum coming from Microsoft.Extensions.Logging
