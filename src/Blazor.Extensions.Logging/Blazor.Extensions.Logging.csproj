@@ -1,4 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
     <Title>Blazor Extensions Logging</Title>
     <Description>Microsoft Extension Logging implementation for ASP.NET Core Blazor.</Description>
