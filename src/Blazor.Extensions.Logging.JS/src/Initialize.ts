@@ -1,29 +1,13 @@
 import { LogObject, LogObjectType, LogLevel } from './LogObject';
 
-function initialize() {
-  "use strict";
+const blazorExtensions = 'BlazorExtensions';
 
-  if (typeof window !== 'undefined' && !window['BlazorExtensions']) {
-    // When the library is loaded in a browser via a <script> element, make the
-    // following APIs available in global scope for invocation from JS
-    window['BlazorExtensions'] = {
-      Logging: {
-        BrowserConsoleLogger: {
-        }
-      }
-    };
-  } else {
-    window['BlazorExtensions'] = {
-      ...window['BlazorExtensions'],
-      Logging: {
-        BrowserConsoleLogger: {
-        }
-      }
-    };
-  }
+interface IBrowserConsoleLogger {
+  Log(logObjectValue: string): void;
+}
 
-  window['BlazorExtensions']['Logging']['BrowserConsoleLogger']['Log'] = function (logObjectValue) {
-
+class BrowserConsoleLogger implements IBrowserConsoleLogger {
+  Log(logObjectValue: string): void {
     const logObject = JSON.parse(logObjectValue);
     var logMethod = console.log;
 
@@ -53,6 +37,27 @@ function initialize() {
     if (logObject.exception) {
       logMethod("Exception: ", logObject.exception);
     }
+  }
+}
+
+function initialize() {
+  "use strict";
+
+  if (typeof window !== 'undefined' && !window[blazorExtensions]) {
+    // When the library is loaded in a browser via a <script> element, make the
+    // following APIs available in global scope for invocation from JS
+    window[blazorExtensions] = {
+      Logging: {
+        BrowserConsoleLogger: new BrowserConsoleLogger()
+      }
+    };
+  } else {
+    window[blazorExtensions] = {
+      ...window['BlazorExtensions'],
+      Logging: {
+        BrowserConsoleLogger: new BrowserConsoleLogger()
+      }
+    };
   }
 }
 
