@@ -1,8 +1,6 @@
-#if !DESKTOP_BUILD
-using Microsoft.AspNetCore.Blazor.Browser.Interop;
-#endif
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions.Internal;
+using Microsoft.JSInterop;
 using System;
 
 namespace Blazor.Extensions.Logging
@@ -10,7 +8,7 @@ namespace Blazor.Extensions.Logging
     internal class BrowserConsoleLogger : ILogger
     {
 #if !DESKTOP_BUILD
-        private const string LoggerFunctionName = "Blazor.Extensions.Logging.BrowserConsoleLogger.Log";
+        private const string LoggerFunctionName = "BlazorExtensions.Logging.BrowserConsoleLogger.Log";
 #endif
 
         private Func<string, LogLevel, bool> filter;
@@ -43,7 +41,7 @@ namespace Blazor.Extensions.Logging
             }
             
 #if !DESKTOP_BUILD
-            RegisteredFunction.InvokeUnmarshalled<object>(LoggerFunctionName, message);
+            JSRuntime.Current.InvokeAsync<object>(LoggerFunctionName, message);
 #else
             Console.WriteLine(message);
 #endif
