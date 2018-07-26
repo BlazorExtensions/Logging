@@ -1,4 +1,3 @@
-import './GlobalExports';
 import { LogObject, LogObjectType, LogLevel } from './LogObject';
 
 // Declare types here until we've Blazor.d.ts
@@ -16,19 +15,30 @@ type BlazorType = {
 
 const Blazor: BlazorType = window["Blazor"];
 
-
 function initialize() {
   "use strict";
 
-  Blazor.registerFunction('Blazor.Extensions.Logging.BrowserConsoleLogger.Log', function (logObjectValue) {
-    const logObjectString = Blazor.platform.toJavaScriptString(logObjectValue);
-    const logObject: LogObject = JSON.parse(logObjectString);
+  if (typeof window !== 'undefined' && !window['BlazorExtensions']) {
+    // When the library is loaded in a browser via a <script> element, make the
+    // following APIs available in global scope for invocation from JS
+    window['BlazorExtensions'] = {
+      Logging: {
+        BrowserConsoleLogger: {
+        }
+      }
+    };
+  }
 
-    if (!logObject) {
-      console.error('Invalid logObject received: ', logObjectString ? logObjectString : '<null>');
-      return;
-    }
+  window['BlazorExtensions']['Logging']['BrowserConsoleLogger']['Log'] = function (logObjectValue) {
+    //console.log(logObjectValue);
+    //const logObjectString = Blazor.platform.toJavaScriptString(logObjectValue);
+    //const logObject: LogObject = JSON.parse(logObjectString);
 
+    //if (!logObject) {
+    //  console.error('Invalid logObject received: ', logObjectString ? logObjectString : '<null>');
+    //  return;
+    //}
+    const logObject = JSON.parse(logObjectValue);
     var logMethod = console.log;
 
     // If we've a table, we'll print it as a table anyway, it is unlikely that the developer want to log errornous data as a table.
@@ -57,7 +67,7 @@ function initialize() {
     if (logObject.exception) {
       logMethod("Exception: ", logObject.exception);
     }
-  });
+  }
 }
 
 initialize();
