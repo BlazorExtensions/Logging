@@ -41,7 +41,7 @@ namespace Blazor.Extensions.Logging
             }
             
 #if !DESKTOP_BUILD
-            JSRuntime.Current.InvokeAsync<object>(LoggerFunctionName, message);
+            ((IJSInProcessRuntime)JSRuntime.Current).Invoke<object>(LoggerFunctionName, message);
 #else
             Console.WriteLine(message);
 #endif
