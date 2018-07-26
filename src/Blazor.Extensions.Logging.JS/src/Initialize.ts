@@ -1,20 +1,5 @@
 import { LogObject, LogObjectType, LogLevel } from './LogObject';
 
-// Declare types here until we've Blazor.d.ts
-export interface System_Object { System_Object__DO_NOT_IMPLEMENT: any };
-export interface System_String extends System_Object { System_String__DO_NOT_IMPLEMENT: any }
-
-interface Platform {
-  toJavaScriptString(dotNetString: System_String): string;
-}
-
-type BlazorType = {
-  registerFunction(identifier: string, implementation: Function),
-  platform: Platform
-};
-
-const Blazor: BlazorType = window["Blazor"];
-
 function initialize() {
   "use strict";
 
@@ -22,27 +7,23 @@ function initialize() {
     // When the library is loaded in a browser via a <script> element, make the
     // following APIs available in global scope for invocation from JS
     window['BlazorExtensions'] = {
+      Logging: {
+        BrowserConsoleLogger: {
+        }
+      }
     };
-  }
-
-  if (typeof window['BlazorExtensions']['Logging'] === 'undefined') {
-    // When the library is loaded in a browser via a <script> element, make the
-    // following APIs available in global scope for invocation from JS
-    window['BlazorExtensions']['Logging'] = {
-      BrowserConsoleLogger: {
+  } else {
+    window['BlazorExtensions'] = {
+      ...window['BlazorExtensions'],
+      Logging: {
+        BrowserConsoleLogger: {
+        }
       }
     };
   }
 
   window['BlazorExtensions']['Logging']['BrowserConsoleLogger']['Log'] = function (logObjectValue) {
-    //console.log(logObjectValue);
-    //const logObjectString = Blazor.platform.toJavaScriptString(logObjectValue);
-    //const logObject: LogObject = JSON.parse(logObjectString);
 
-    //if (!logObject) {
-    //  console.error('Invalid logObject received: ', logObjectString ? logObjectString : '<null>');
-    //  return;
-    //}
     const logObject = JSON.parse(logObjectValue);
     var logMethod = console.log;
 
