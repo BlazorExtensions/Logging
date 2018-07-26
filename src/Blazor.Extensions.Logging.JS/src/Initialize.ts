@@ -22,9 +22,14 @@ function initialize() {
     // When the library is loaded in a browser via a <script> element, make the
     // following APIs available in global scope for invocation from JS
     window['BlazorExtensions'] = {
-      Logging: {
-        BrowserConsoleLogger: {
-        }
+    };
+  }
+
+  if (typeof window['BlazorExtensions']['Logging'] === 'undefined') {
+    // When the library is loaded in a browser via a <script> element, make the
+    // following APIs available in global scope for invocation from JS
+    window['BlazorExtensions']['Logging'] = {
+      BrowserConsoleLogger: {
       }
     };
   }
