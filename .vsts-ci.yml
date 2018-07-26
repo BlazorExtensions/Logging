@@ -4,12 +4,10 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-
-  - task: DotNetCoreCLI@2
+  - task: Npm@1
     inputs:
-      command: 'restore'
-      projects: '**/*.csproj'
-
+      command: 'install'
+      workingDir: src/Blazor.Extensions.Logging.JS
   - task: DotNetCoreCLI@2
     inputs:
       command: 'build'

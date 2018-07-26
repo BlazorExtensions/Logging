@@ -1,5 +1,5 @@
 #if !DESKTOP_BUILD
-using Microsoft.AspNetCore.Blazor;
+using Microsoft.JSInterop;
 #endif
 using Microsoft.Extensions.Logging;
 #if DESKTOP_BUILD
@@ -60,7 +60,7 @@ namespace Blazor.Extensions.Logging
             }
 
 #if !DESKTOP_BUILD
-            return JsonUtil.Serialize(logObject);
+            return Json.Serialize(logObject);
 #else
             return JsonConvert.SerializeObject(logObject, new JsonSerializerSettings
             {
