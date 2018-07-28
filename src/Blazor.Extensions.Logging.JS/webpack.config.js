@@ -16,7 +16,7 @@ module.exports = {
     ]
   },
   entry: {
-    "blazor.extensions.logging": "./src/Initialize.ts"
+    "blazor.extensions.logging": "./src/InitializeLogging.ts"
   },
   output: {
     path: path.join(__dirname, "/dist"),
