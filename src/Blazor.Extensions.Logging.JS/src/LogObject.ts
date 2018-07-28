@@ -5,7 +5,7 @@ export type LogObject = {
   exception: string;
 }
 
-// Enum coming from Microsoft.Extensions.Logging
+// enum coming from Microsoft.Extensions.Logging
 export enum LogLevel {
   Trace = 0,
   Debug = 1,
