@@ -26,9 +26,9 @@ If you want to log an enumerable list of objects, then the browser side componen
 
 ## Filtering
 
-The implementation supports the ```ILoggerFactory``` based filtering configuration that is supplied by the Microsoft Extension Logging abstraction.
+The implementation supports the ```ILoggerFactory```-based filtering configuration that is supplied by the Microsoft Extension Logging abstraction.
 
-To keep it lightweight [Microsoft Extensions Configuration](https://github.com/aspnet/Configuration) based configuration is not supported, the logger can be only configured in code.
+To keep it lightweight, [Microsoft Extensions Configuration](https://github.com/aspnet/Configuration) based configuration is not supported; the logger can be only configured in code.
 
 ## Log levels
 
@@ -62,7 +62,7 @@ The following snippet shows how to consume the logger in a Blazor component.
 @functions {
   protected override async Task OnInitAsync()
   {
-      logger.LogDebug("MyCompoent init");
+      logger.LogDebug("MyComponent init");
   }
 }
 ```
