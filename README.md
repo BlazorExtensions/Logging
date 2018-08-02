@@ -71,11 +71,11 @@ If you want to consume it outside of a ```cshtml``` based component, then you ca
 
 ```c#
 [Inject]
-protected ILogger<MyClass> logger;
+protected ILogger<MyClass> Logger {get;set;}
 
 public void LogSomething()
 {
-  logger.LogDebug("Inside LogSomething");
+  Logger.LogDebug("Inside LogSomething");
 }
 ```
 
