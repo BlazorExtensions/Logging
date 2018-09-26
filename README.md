@@ -32,7 +32,7 @@ To keep it lightweight, [Microsoft Extensions Configuration](https://github.com/
 
 ## Log levels
 
-The logger supports the [LogLevels](https://github.com/aspnet/Logging/blob/dev/src/Microsoft.Extensions.Logging.Abstractions/LogLevel.cs) defined in MEL.
+The logger supports the [LogLevels](https://github.com/aspnet/Logging/blob/master/src/Microsoft.Extensions.Logging.Abstractions/LogLevel.cs) defined in MEL.
 
 Some of the log levels are not available as distinct methods in the browser's developer tool, so the browser side component does some [mapping](https://github.com/BlazorExtensions/Logging/blob/master/src/Blazor.Extensions.Logging.JS/src/Initialize.ts#L35).
 
