@@ -4,7 +4,7 @@
     <Authors>Blazor Extensions Contributors</Authors>
     <Product>Blazor Extensions</Product>
     <Copyright>(c) Blazor Extensions Contributors. All rights reserved.</Copyright>
-    <PackageLicenseUrl>https://github.com/BlazorExtensions/Logging#license</PackageLicenseUrl>
+    <PackageLicense>https://github.com/BlazorExtensions/Logging#license</PackageLicense>
     <PackageProjectUrl>https://github.com/BlazorExtensions/Logging</PackageProjectUrl>
     <PackageIconUrl>https://avatars2.githubusercontent.com/u/38994076?s%3D128%26v%3D4</PackageIconUrl>
     <PackageTags>Microsoft ASP.NET Core Blazor Extensions Logging</PackageTags>
@@ -65,4 +65,11 @@
       </PropertyGroup>
     </Otherwise>
   </Choose>
+
+  <!-- Include preview Blazor bits -->
+  <PropertyGroup>
+    <RestoreAdditionalProjectSources>
+      https://dotnet.myget.org/f/blazor-dev/api/v3/index.json;
+    </RestoreAdditionalProjectSources>
+  </PropertyGroup>
 </Project>

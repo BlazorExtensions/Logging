@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <RunCommand>dotnet</RunCommand>
@@ -6,9 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Blazor.Browser" Version="0.7.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Blazor.Build" Version="0.7.0" />
-    <DotNetCliToolReference Include="Microsoft.AspNetCore.Blazor.Cli" Version="0.7.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Browser" Version="0.8.0-preview1-20181126.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Build" Version="0.8.0-preview1-20181126.4" />
+    <DotNetCliToolReference Include="Microsoft.AspNetCore.Blazor.Cli" Version="0.8.0-preview1-20181126.4" />
   </ItemGroup>
 
   <ItemGroup>
