@@ -77,7 +77,7 @@ namespace Blazor.Extensions.Logging
                 return false;
             }
 
-            if (data as IEnumerable != null)
+            if (data is IEnumerable)
             {
                 return true;
             }

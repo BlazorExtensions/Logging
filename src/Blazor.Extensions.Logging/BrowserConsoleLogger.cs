@@ -1,5 +1,5 @@
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions.Internal;
+using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.JSInterop;
 using System;
 
@@ -68,6 +68,13 @@ namespace Blazor.Extensions.Logging
 
         public string Name { get; }
 
-        public IDisposable BeginScope<TState>(TState state) => NullScope.Instance;
+        public IDisposable BeginScope<TState>(TState state) => new NullScope();
+
+        private class NullScope : IDisposable
+        {
+            public void Dispose()
+            {
+            }
+        }
     }
 }
