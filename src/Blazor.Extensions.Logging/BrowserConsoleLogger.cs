@@ -68,10 +68,18 @@ namespace Blazor.Extensions.Logging
 
         public string Name { get; }
 
-        public IDisposable BeginScope<TState>(TState state) => new NullScope();
+        public IDisposable BeginScope<TState>(TState state) => NullScope.Instance;
 
+        // https://github.com/aspnet/Extensions/blob/master/src/Logging/shared/NullScope.cs
         private class NullScope : IDisposable
         {
+            public static NullScope Instance { get; } = new NullScope();
+
+            private NullScope()
+            {
+            }
+
+            /// <inheritdoc />
             public void Dispose()
             {
             }
