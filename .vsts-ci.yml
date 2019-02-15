@@ -8,6 +8,10 @@ steps:
     inputs:
       command: 'install'
       workingDir: src/Blazor.Extensions.Logging.JS
+  - task: DotNetCoreInstaller@0
+    displayName: 'Use .NET Core sdk 3.0.100-preview-010184'
+    inputs:
+      version: '3.0.100-preview-010184'
   - task: DotNetCoreCLI@2
     inputs:
       command: 'build'
@@ -23,3 +27,6 @@ steps:
       majorVersion: '0'
       minorVersion: '1'
       patchVersion: '0'
+
+
+      
