@@ -1,10 +1,10 @@
-using Microsoft.AspNetCore.Blazor.Hosting;
+﻿using Microsoft.AspNetCore.Blazor.Hosting;
 
 namespace Blazor.Extensions.Logging.Test
 {
     public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
         }

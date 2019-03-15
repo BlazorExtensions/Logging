@@ -1,5 +1,4 @@
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions.Internal;
 using Microsoft.JSInterop;
 using System;
 
@@ -12,16 +11,18 @@ namespace Blazor.Extensions.Logging
 #endif
 
         private Func<string, LogLevel, bool> filter;
+        private IJSRuntime jsRuntime;
 
-        public BrowserConsoleLogger(string name, Func<string, LogLevel, bool> filter)
+        public BrowserConsoleLogger(IJSRuntime jsRuntime, string name, Func<string, LogLevel, bool> filter)
         {
+            this.jsRuntime = jsRuntime;
             this.filter = filter ?? ((category, logLevel) => true);
             this.Name = name ?? throw new ArgumentNullException(nameof(name));
         }
 
         public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
         {
-            if (!IsEnabled(logLevel))
+            if (!this.IsEnabled(logLevel))
             {
                 return;
             }
@@ -30,7 +31,6 @@ namespace Blazor.Extensions.Logging
             {
                 throw new ArgumentNullException(nameof(formatter));
             }
-
             var message = formatter(state, exception);
 
             if (!(state is FormattedLogObject))
@@ -39,9 +39,9 @@ namespace Blazor.Extensions.Logging
 
                 message = internalFormatter.ToString();
             }
-            
+
 #if !DESKTOP_BUILD
-            ((IJSInProcessRuntime)JSRuntime.Current).Invoke<object>(LoggerFunctionName, message);
+            this.jsRuntime.InvokeAsync<object>(LoggerFunctionName, message);
 #else
             Console.WriteLine(message);
 #endif
@@ -69,5 +69,19 @@ namespace Blazor.Extensions.Logging
         public string Name { get; }
 
         public IDisposable BeginScope<TState>(TState state) => NullScope.Instance;
+
+        private class NullScope : IDisposable
+        {
+            public static NullScope Instance { get; } = new NullScope();
+
+            private NullScope()
+            {
+            }
+
+            public void Dispose()
+            {
+            }
+        }
+
     }
 }

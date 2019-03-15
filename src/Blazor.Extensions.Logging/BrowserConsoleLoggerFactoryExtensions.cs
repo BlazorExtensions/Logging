@@ -1,6 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
+using Microsoft.JSInterop;
 using System;
 
 namespace Blazor.Extensions.Logging
@@ -22,9 +23,9 @@ namespace Blazor.Extensions.Logging
         /// Adds a browser console logger that is enabled for <see cref="LogLevel"/>.Information or higher.
         /// </summary>
         /// <param name="factory">The <see cref="ILoggerFactory"/> to use.</param>
-        public static ILoggerFactory AddBrowserConsole(this ILoggerFactory factory)
+        public static ILoggerFactory AddBrowserConsole(this ILoggerFactory factory, IJSRuntime jsRuntime)
         {
-            factory.AddBrowserConsole(LogLevel.Information);
+            factory.AddBrowserConsole(jsRuntime, LogLevel.Information);
 
             return factory;
         }
@@ -34,9 +35,9 @@ namespace Blazor.Extensions.Logging
         /// </summary>
         /// <param name="factory">The <see cref="ILoggerFactory"/> to use.</param>
         /// <param name="minLevel">The minimum <see cref="LogLevel"/> to be logged</param>
-        public static ILoggerFactory AddBrowserConsole(this ILoggerFactory factory, LogLevel minLevel)
+        public static ILoggerFactory AddBrowserConsole(this ILoggerFactory factory, IJSRuntime jsRuntime, LogLevel minLevel)
         {
-            factory.AddBrowserConsole((category, logLevel) => logLevel >= minLevel);
+            factory.AddBrowserConsole(jsRuntime, (category, logLevel) => logLevel >= minLevel);
 
             return factory;
         }
@@ -46,9 +47,9 @@ namespace Blazor.Extensions.Logging
         /// </summary>
         /// <param name="factory">The <see cref="ILoggerFactory"/> to use.</param>
         /// <param name="filter">The category filter to apply to logs.</param>
-        public static ILoggerFactory AddBrowserConsole(this ILoggerFactory factory, Func<string, LogLevel, bool> filter)
+        public static ILoggerFactory AddBrowserConsole(this ILoggerFactory factory, IJSRuntime jsRuntime, Func<string, LogLevel, bool> filter)
         {
-            factory.AddProvider(new BrowserConsoleLoggerProvider(filter));
+            factory.AddProvider(new BrowserConsoleLoggerProvider(jsRuntime, filter));
 
             return factory;
         }
