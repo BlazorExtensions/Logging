@@ -1,5 +1,4 @@
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions.Internal;
 using Microsoft.JSInterop;
 using System;
 
@@ -7,21 +6,24 @@ namespace Blazor.Extensions.Logging
 {
     internal class BrowserConsoleLogger : ILogger
     {
+
 #if !DESKTOP_BUILD
         private const string LoggerFunctionName = "BlazorExtensions.Logging.BrowserConsoleLogger.Log";
 #endif
 
+        private readonly IJSRuntime runtime;
         private Func<string, LogLevel, bool> filter;
 
-        public BrowserConsoleLogger(string name, Func<string, LogLevel, bool> filter)
+        public BrowserConsoleLogger(IJSRuntime runtime, string name, Func<string, LogLevel, bool> filter)
         {
+            this.runtime = runtime;
             this.filter = filter ?? ((category, logLevel) => true);
             this.Name = name ?? throw new ArgumentNullException(nameof(name));
         }
 
-        public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
+        public async void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
         {
-            if (!IsEnabled(logLevel))
+            if (!this.IsEnabled(logLevel))
             {
                 return;
             }
@@ -39,9 +41,9 @@ namespace Blazor.Extensions.Logging
 
                 message = internalFormatter.ToString();
             }
-            
+
 #if !DESKTOP_BUILD
-            ((IJSInProcessRuntime)JSRuntime.Current).Invoke<object>(LoggerFunctionName, message);
+            await this.runtime.InvokeAsync<object>(LoggerFunctionName, message);
 #else
             Console.WriteLine(message);
 #endif
@@ -68,6 +70,6 @@ namespace Blazor.Extensions.Logging
 
         public string Name { get; }
 
-        public IDisposable BeginScope<TState>(TState state) => NullScope.Instance;
+        public IDisposable BeginScope<TState>(TState state) => null;
     }
 }
