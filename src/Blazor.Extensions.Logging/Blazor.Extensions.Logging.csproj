@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <Title>Blazor Extensions Logging</Title>
@@ -6,12 +6,20 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <OutputType>Library</OutputType>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <IsPackable>true</IsPackable>
+    <RestoreAdditionalProjectSources>
+      https://dotnet.myget.org/F/aspnetcore-dev/api/v3/index.json;
+      https://dotnet.myget.org/F/blazor-dev/api/v3/index.json;
+    </RestoreAdditionalProjectSources>
+    <LangVersion>7.3</LangVersion>
+    <RazorLangVersion>3.0</RazorLangVersion>
+    <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
     <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);IncludeP2POutput</TargetsForTfmSpecificBuildOutput>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Blazor" Version="3.0.0-preview4-19216-03" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Browser" Version="3.0.0-preview4-19216-03" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="3.0.0-preview4.19216.2" />
   </ItemGroup>
 
