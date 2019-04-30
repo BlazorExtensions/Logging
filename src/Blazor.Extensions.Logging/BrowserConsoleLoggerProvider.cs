@@ -1,4 +1,5 @@
 using Microsoft.Extensions.Logging;
+using Microsoft.JSInterop;
 using System;
 using System.Collections.Concurrent;
 
@@ -10,11 +11,12 @@ namespace Blazor.Extensions.Logging
         private static readonly Func<string, LogLevel, bool> TrueFilter = (cat, level) => true;
 
         private readonly Func<string, LogLevel, bool> filter;
-
+        private readonly IJSRuntime runtime;
         private ConcurrentDictionary<string, BrowserConsoleLogger> loggers;
 
-        public BrowserConsoleLoggerProvider()
+        public BrowserConsoleLoggerProvider(IJSRuntime runtime)
         {
+            this.runtime = runtime;
         }
 
         public BrowserConsoleLoggerProvider(Func<string, LogLevel, bool> filter)
@@ -39,7 +41,7 @@ namespace Blazor.Extensions.Logging
 
         public void Dispose() => this.loggers?.Clear();
 
-        private BrowserConsoleLogger CreateLoggerImplementation(string name) => new BrowserConsoleLogger(name, GetFilter(name));
+        private BrowserConsoleLogger CreateLoggerImplementation(string name) => new BrowserConsoleLogger(this.runtime, name, this.GetFilter(name));
 
         private Func<string, LogLevel, bool> GetFilter(string name)
         {

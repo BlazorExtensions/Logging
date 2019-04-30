@@ -9,7 +9,7 @@
 
     protected override async Task OnInitAsync()
     {
-        forecasts = await Http.GetJsonAsync<WeatherForecast[]>("/weather.json");
+        forecasts = await Http.GetJsonAsync<WeatherForecast[]>("weather.json");
 
         logger.LogTrace("Trace: Forecast");
         logger.LogDebug("Debug: Forecast");
