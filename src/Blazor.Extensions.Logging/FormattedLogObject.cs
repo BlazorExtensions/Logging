@@ -44,7 +44,7 @@ namespace Blazor.Extensions.Logging
             }
             else
             {
-                var isDataEnumerable = IsDataEnumerable(this.data);
+                var isDataEnumerable = this.IsDataEnumerable(this.data);
 
                 logObject = new LogObject
                 {
@@ -60,7 +60,7 @@ namespace Blazor.Extensions.Logging
             }
 
 #if !DESKTOP_BUILD
-            return Json.Serialize(logObject);
+            return Newtonsoft.Json.JsonConvert.SerializeObject(logObject);
 #else
             return JsonConvert.SerializeObject(logObject, new JsonSerializerSettings
             {
