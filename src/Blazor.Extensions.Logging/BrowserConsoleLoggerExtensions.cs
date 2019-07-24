@@ -173,8 +173,8 @@ namespace Blazor.Extensions.Logging
         public static void Log<T>(this ILogger logger, LogLevel logLevel, Exception exception, T data) where T : class
         {
             Func<object, Exception, string> formatter = MessageFormatterFunc;
-
-            logger.Log(logLevel, 0, new FormattedLogObject(logLevel, data, exception), exception, formatter);
+            var consoleLogger = logger as BrowserConsoleLogger;
+            logger.Log(logLevel, 0, new FormattedLogObject(consoleLogger.Name, logLevel, data, exception), exception, formatter);
         }
 
         private static string MessageFormatterFunc(object state, Exception error) => state.ToString();

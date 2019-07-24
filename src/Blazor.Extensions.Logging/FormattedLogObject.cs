@@ -16,9 +16,18 @@ namespace Blazor.Extensions.Logging
         private readonly LogLevel logLevel;
         private readonly object data;
         private readonly Exception exception;
+        private readonly string category;
 
-        public FormattedLogObject(LogLevel logLevel, object data, Exception exception)
+        // public FormattedLogObject(LogLevel logLevel, object data, Exception exception)
+        // {
+        //     this.logLevel = logLevel;
+        //     this.data = data;
+        //     this.exception = exception;
+        // }
+
+        public FormattedLogObject(string category, LogLevel logLevel, object data, Exception exception)
         {
+            this.category = category;
             this.logLevel = logLevel;
             this.data = data;
             this.exception = exception;
@@ -37,6 +46,7 @@ namespace Blazor.Extensions.Logging
             {
                 logObject = new LogObject
                 {
+                    Category = this.category,
                     LogLevel = logLevel,
                     Type = LogObjectType.String,
                     Payload = stringData,
@@ -48,13 +58,14 @@ namespace Blazor.Extensions.Logging
 
                 logObject = new LogObject
                 {
+                    Category = this.category,
                     LogLevel = logLevel,
                     Type = isDataEnumerable ? LogObjectType.Table : LogObjectType.Object,
                     Payload = data
                 };
             }
 
-            if (this.exception !=null)
+            if (this.exception != null)
             {
                 logObject.Exception = this.exception.ToString();
             }

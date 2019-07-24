@@ -10,10 +10,10 @@ export class BrowserConsoleLogger implements IBrowserConsoleLogger {
     let logMethod: Function = console.log;
 
     // if we've a table, we'll print it as a table anyway, it is unlikely that the developer want to log errornous data as a table.
-    if (logObject.type === LogObjectType.Table) {
+    if (logObject.Type === LogObjectType.Table) {
       logMethod = console.table;
     } else {
-      switch (logObject.logLevel) {
+      switch (logObject.LogLevel) {
         case LogLevel.Trace:
           logMethod = console.trace;
           break;
@@ -29,11 +29,14 @@ export class BrowserConsoleLogger implements IBrowserConsoleLogger {
           break;
       }
     }
+    if (logObject.Type == LogObjectType.Table) {
+      logMethod(logObject.Payload);
+    } else {
+      logMethod(`[${logObject.Category}]`, logObject.Payload);
+    }
 
-    logMethod(logObject.payload);
-
-    if (logObject.exception) {
-      logMethod("Exception: ", logObject.exception);
+    if (logObject.Exception) {
+      logMethod(`[${logObject.Category}] Exception: `, logObject.Exception);
     }
   }
 }

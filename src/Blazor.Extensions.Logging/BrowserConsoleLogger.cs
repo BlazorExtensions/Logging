@@ -4,6 +4,21 @@ using System;
 
 namespace Blazor.Extensions.Logging
 {
+    internal class BrowserConsoleLogger<T> : BrowserConsoleLogger, ILogger<T>
+    {
+        public BrowserConsoleLogger(IJSRuntime runtime)
+         : base(runtime, typeof(T).FullName, null)
+        {
+
+        }
+
+        public BrowserConsoleLogger(IJSRuntime runtime, Func<string, LogLevel, bool> filter)
+         : base(runtime, typeof(T).FullName, filter)
+        {
+
+        }
+    }
+
     internal class BrowserConsoleLogger : ILogger
     {
 
@@ -37,7 +52,7 @@ namespace Blazor.Extensions.Logging
 
             if (!(state is FormattedLogObject))
             {
-                var internalFormatter = new FormattedLogObject(logLevel, message, exception);
+                var internalFormatter = new FormattedLogObject(this.Name, logLevel, message, exception);
 
                 message = internalFormatter.ToString();
             }

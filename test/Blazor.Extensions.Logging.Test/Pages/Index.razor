@@ -15,8 +15,8 @@
         logger.LogDebug("Debug: Forecast");
         logger.LogWarning("Warning: Forecast");
         logger.LogError("Error: Forecast");
-        logger.LogError(new Exception("Oh my, exception"), "Error: Forecast");
         logger.LogCritical("Critical: Forecast");
+        logger.LogError(new Exception("Oh my, exception"), "Error: Forecast");
         logger.LogInformation(forecasts);
     }
 
