@@ -60,7 +60,7 @@ The following snippet shows how to consume the logger in a Blazor component.
 @inject ILogger<Index> logger
 
 @functions {
-  protected override async Task OnInitAsync()
+  protected override async Task OnInitializedAsync()
   {
       logger.LogDebug("MyComponent init");
   }
