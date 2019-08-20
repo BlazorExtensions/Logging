@@ -18,6 +18,7 @@
         logger.LogCritical("Critical: Forecast");
         logger.LogError(new Exception("Oh my, exception"), "Error: Forecast");
         logger.LogInformation(forecasts);
+        logger.LogInformation(forecasts[0]);
     }
 
     class WeatherForecast
