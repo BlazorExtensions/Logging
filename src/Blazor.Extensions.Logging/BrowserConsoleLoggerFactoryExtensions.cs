@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using System;
 
@@ -12,7 +13,7 @@ namespace Blazor.Extensions.Logging
         /// </summary>
         public static ILoggingBuilder AddBrowserConsole(this ILoggingBuilder builder)
         {
-            builder.Services.Add(ServiceDescriptor.Singleton<ILoggerProvider, BrowserConsoleLoggerProvider>());
+            builder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<ILoggerProvider, BrowserConsoleLoggerProvider>());
 
             // HACK: Override the hardcoded ILogger<> injected by Blazor
             builder.Services.Add(ServiceDescriptor.Singleton(typeof(ILogger<>), typeof(BrowserConsoleLogger<>)));
