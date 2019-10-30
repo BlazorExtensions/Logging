@@ -1,0 +1,27 @@
+name: Publish
+
+on:
+  push:
+    branches:
+      - release
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        ref: 'release'
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.100-preview1-014459
+    - name: Build
+      run: dotnet build --configuration Release
+    - name: Pack
+      run: dotnet pack --configuration Release --output packages /p:Version=1.1.0-preview1
+    - name: Push
+      run: |
+        dotnet nuget push packages/Blazor.Extensions.Logging.1.1.0-preview1.nupkg -k ${{ secrets.NUGET_KEY }} -s https://api.nuget.org/v3/index.json
