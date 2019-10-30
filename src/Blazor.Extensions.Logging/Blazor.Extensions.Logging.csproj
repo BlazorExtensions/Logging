@@ -12,6 +12,8 @@
     <RazorLangVersion>3.0</RazorLangVersion>
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
     <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);IncludeP2POutput</TargetsForTfmSpecificBuildOutput>
+    <PackageId>Blazor.Extensions.Logging</PackageId>
+    <PackageVersion>1.1.0-preview2</PackageVersion>
   </PropertyGroup>
 
   <ItemGroup>

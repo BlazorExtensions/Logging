@@ -2,8 +2,8 @@ name: Publish
 
 on:
   push:
-    branches:
-      - release
+    tags:
+      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
 
 jobs:
   build:
@@ -12,8 +12,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-      with:
-        ref: 'release'
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
@@ -21,7 +19,18 @@ jobs:
     - name: Build
       run: dotnet build --configuration Release
     - name: Pack
-      run: dotnet pack --configuration Release --output packages /p:Version=1.1.0-preview1
+      working-directory: src/Blazor.Extensions.Logging
+      run: dotnet pack --configuration Release
     - name: Push
+      working-directory: src/Blazor.Extensions.Logging/bin/Release
       run: |
-        dotnet nuget push packages/Blazor.Extensions.Logging.1.1.0-preview1.nupkg -k ${{ secrets.NUGET_KEY }} -s https://api.nuget.org/v3/index.json
+        dotnet nuget push Blazor.Extensions.Logging.*.nupkg -k ${{ secrets.NUGET_KEY }} -s https://api.nuget.org/v3/index.json
+    - name: Create Release
+      uses: actions/create-release@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        draft: false
+        prerelease: false
