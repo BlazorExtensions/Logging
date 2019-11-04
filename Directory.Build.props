@@ -31,7 +31,7 @@
   <!-- Versioning properties -->
   <PropertyGroup>
     <VersionPrefix Condition=" '$(VersionPrefix)'=='' ">3.1.0</VersionPrefix>
-    <VersionSuffix Condition=" '$(VersionSuffix)'=='' ">preview1-014459</VersionSuffix>
+    <VersionSuffix Condition=" '$(VersionSuffix)'=='' ">preview2-014569</VersionSuffix>
   </PropertyGroup>
 
   <Choose>
