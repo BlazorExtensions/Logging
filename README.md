@@ -46,7 +46,7 @@ The following snippet shows how to setup the browser console logger by registeri
 public void ConfigureServices(IServiceCollection services)
 {
     services.AddLogging(builder => builder
-        .AddBrowserConsole() // Add Blazor.Extensions.Logging.BrowserConsoleLogger
+        .AddBrowserConsole() // Add Blazor.Extensions.Logging
         .SetMinimumLevel(LogLevel.Trace)
     );
 }
