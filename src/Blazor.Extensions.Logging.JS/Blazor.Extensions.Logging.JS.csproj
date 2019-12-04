@@ -26,7 +26,7 @@
   </Target>
 
   <Target Name="RunWebpack" AfterTargets="ResolveReferences" Inputs="@(WebpackInputs)" Outputs="..\blazor.extensions.logging\wwwroot\blazor.extensions.logging.js" DependsOnTargets="EnsureNpmRestored">
-    <RemoveDir Directories="..\blazor.extentions.logging\wwwroot" />
+    <RemoveDir Directories="..\blazor.extensions.logging\wwwroot" />
     <Exec Command="npm run build" />
   </Target>
 </Project>
