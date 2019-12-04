@@ -6,13 +6,13 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <IsPackable>true</IsPackable>
     <LangVersion>7.3</LangVersion>
     <RazorLangVersion>3.0</RazorLangVersion>
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
     <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);IncludeP2POutput</TargetsForTfmSpecificBuildOutput>
-    <Version>3.1.0-Preview4</Version>
+    <Version>3.1.0-preview4.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,9 +25,18 @@
     <ProjectReference Include="..\Blazor.Extensions.Logging.JS\Blazor.Extensions.Logging.JS.csproj" PrivateAssets="All" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
   <Target Name="IncludeP2POutput">
     <ItemGroup>
       <BuildOutputInPackage Include="$(OutputPath)Blazor.Extensions.Logging.JS.dll" />
     </ItemGroup>
   </Target>
+
+  <ItemGroup>
+    <None Include="wwwroot\blazor.extensions.logging.js" />
+  </ItemGroup>
+
 </Project>

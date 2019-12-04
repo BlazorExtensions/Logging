@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
@@ -11,6 +11,8 @@
 
     <!-- VS's FastUpToDateCheck doesn't consider .ts file changes, so it's necessary to disable it to get incremental builds to work correctly (albeit not as fast as if FastUpToDateCheck did work for them) -->
     <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Version>3.1.0-preview4</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,11 +25,8 @@
     <Exec Command="npm install" />
   </Target>
 
-  <Target Name="RunWebpack" AfterTargets="ResolveReferences" Inputs="@(WebpackInputs)" Outputs="dist\blazor.extensions.logging.js" DependsOnTargets="EnsureNpmRestored">
-    <RemoveDir Directories="dist" />
+  <Target Name="RunWebpack" AfterTargets="ResolveReferences" Inputs="@(WebpackInputs)" Outputs="..\blazor.extensions.logging\wwwroot\blazor.extensions.logging.js" DependsOnTargets="EnsureNpmRestored">
+    <RemoveDir Directories="..\blazor.extentions.logging\wwwroot" />
     <Exec Command="npm run build" />
-    <ItemGroup>
-      <EmbeddedResource Include="dist\**\*.js" LogicalName="blazor:js:%(RecursiveDir)%(Filename)%(Extension)" />
-    </ItemGroup>
   </Target>
 </Project>
