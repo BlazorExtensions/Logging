@@ -40,6 +40,12 @@ Some of the log levels are not available as distinct methods in the browser's de
 
 ## Setup
 
+Since the 3.1.0-preview4.19579.2 you have to link the necessary files inside index.html. Include the following snippet inside the ```<head>``` tag.
+
+```javascript
+  <script src="_content/blazor.extensions.logging.js"></script>
+```
+
 The following snippet shows how to setup the browser console logger by registering it for dependency injection in the ```Startup.cs``` of the application.
 
 ```c#
