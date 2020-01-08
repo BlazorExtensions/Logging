@@ -11,8 +11,16 @@
     <LangVersion>7.3</LangVersion>
     <RazorLangVersion>3.0</RazorLangVersion>
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
-    <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);IncludeP2POutput</TargetsForTfmSpecificBuildOutput>
+
     <Version>3.1.0-preview4.1</Version>
+
+    <!-- VS's FastUpToDateCheck doesn't consider .ts file changes, so it's necessary to disable it to get incremental builds to work correctly (albeit not as fast as if FastUpToDateCheck did work for them) -->
+    <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
+
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+    <DefaultItemExcludes>${DefaultItemExcludes};node_modules\**</DefaultItemExcludes>
+
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,21 +30,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Blazor.Extensions.Logging.JS\Blazor.Extensions.Logging.JS.csproj" PrivateAssets="All" />
+    <WebpackInputs Include="**\*.ts" Exclude="node_modules\**" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\" />
-  </ItemGroup>
-
-  <Target Name="IncludeP2POutput">
-    <ItemGroup>
-      <BuildOutputInPackage Include="$(OutputPath)Blazor.Extensions.Logging.JS.dll" />
-    </ItemGroup>
+  <Target Name="EnsureNpmRestored" Condition="!Exists('node_modules')">
+    <Message Importance="high" Text="Restoring dependencies using 'npm'. This may take several minutes..." />
+    <Exec Command="npm install" />
   </Target>
 
-  <ItemGroup>
-    <None Include="wwwroot\blazor.extensions.logging.js" />
-  </ItemGroup>
+  <Target Name="RunWebpack" AfterTargets="ResolveReferences" Inputs="@(WebpackInputs)" Outputs="..\blazor.extensions.logging\wwwroot\blazor.extensions.logging.js" DependsOnTargets="EnsureNpmRestored">
+    <RemoveDir Directories="wwwroot" />
+    <Exec Command="npm run build" />
+  </Target>
 
 </Project>

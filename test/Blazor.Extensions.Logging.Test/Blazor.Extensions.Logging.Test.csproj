@@ -14,7 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Blazor.Extensions.Logging.JS\Blazor.Extensions.Logging.JS.csproj" />
     <ProjectReference Include="..\..\src\Blazor.Extensions.Logging\Blazor.Extensions.Logging.csproj" />
   </ItemGroup>
 

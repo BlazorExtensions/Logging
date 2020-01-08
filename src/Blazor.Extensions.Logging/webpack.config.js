@@ -16,10 +16,10 @@ module.exports = {
     ]
   },
   entry: {
-    "blazor.extensions.logging": "./src/InitializeLogging.ts"
+    "blazor.extensions.logging": "./typescript/InitializeLogging.ts"
   },
   output: {
-    path: path.join(__dirname, "/dist"),
+    path: path.join(__dirname, "/wwwroot"),
     filename: "[name].js"
   }
 };
