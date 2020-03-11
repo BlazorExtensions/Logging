@@ -1,16 +1,31 @@
+using Blazor.Extensions.Logging;
+
 using Microsoft.AspNetCore.Blazor.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+
+using System.Threading.Tasks;
 
 namespace Blazor.Extensions.Logging.Test
 {
     public class Program
     {
-        static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
-        }
+            var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
-        public static IWebAssemblyHostBuilder CreateHostBuilder(string[] args) =>
-            BlazorWebAssemblyHost.CreateDefaultBuilder()
-                .UseBlazorStartup<Startup>();
+            // Add Blazor.Extensions.Logging.BrowserConsoleLogger
+            builder.Services.AddLogging(builder2 => builder2
+                .AddBrowserConsole() // Add Blazor.Extensions.Logging.BrowserConsoleLogger
+                .SetMinimumLevel(LogLevel.Trace)
+            );
+
+
+            builder.RootComponents.Add<App>("app");
+
+            var host = builder.Build();
+
+            await host.RunAsync();
+        }
     }
 }
