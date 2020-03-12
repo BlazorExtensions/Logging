@@ -1,6 +1,6 @@
 using Blazor.Extensions.Logging;
 
-using Microsoft.AspNetCore.Blazor.Hosting;
+using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -20,6 +20,7 @@ namespace Blazor.Extensions.Logging.Test
                 .SetMinimumLevel(LogLevel.Trace)
             );
 
+            builder.Services.AddBaseAddressHttpClient();
 
             builder.RootComponents.Add<App>("app");
 
