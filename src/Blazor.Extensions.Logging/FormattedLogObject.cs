@@ -1,31 +1,35 @@
-#if !DESKTOP_BUILD
-using Microsoft.JSInterop;
-#endif
 using Microsoft.Extensions.Logging;
-#if DESKTOP_BUILD
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-#endif
 using System;
 using System.Collections;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Blazor.Extensions.Logging
 {
     internal class FormattedLogObject
     {
+        private static readonly JsonSerializerOptions jsonOptions;
+
         private readonly LogLevel logLevel;
         private readonly object data;
         private readonly Exception exception;
         private readonly string category;
 
-        // public FormattedLogObject(LogLevel logLevel, object data, Exception exception)
-        // {
-        //     this.logLevel = logLevel;
-        //     this.data = data;
-        //     this.exception = exception;
-        // }
+        static FormattedLogObject()
+        {
+            jsonOptions = new JsonSerializerOptions
+            {
+#if DEBUG
+            WriteIndented = true
+#else
+            WriteIndented = false
+#endif
+            };
 
-        public FormattedLogObject(string category, LogLevel logLevel, object data, Exception exception)
+            jsonOptions.Converters.Add(new JsonStringEnumConverter(JsonNamingPolicy.CamelCase));
+        }
+
+        public FormattedLogObject (string category, LogLevel logLevel, object data, Exception exception)
         {
             this.category = category;
             this.logLevel = logLevel;
@@ -33,14 +37,14 @@ namespace Blazor.Extensions.Logging
             this.exception = exception;
         }
 
-        public override string ToString()
+        public override string ToString ()
         {
             if (this.data == null)
             {
                 return string.Empty;
             }
 
-            var logObject = default(LogObject);
+            var logObject = default (LogObject);
 
             if (this.data is string stringData)
             {
@@ -54,7 +58,7 @@ namespace Blazor.Extensions.Logging
             }
             else
             {
-                var isDataEnumerable = this.IsDataEnumerable(this.data);
+                var isDataEnumerable = this.IsDataEnumerable (this.data);
 
                 logObject = new LogObject
                 {
@@ -67,21 +71,13 @@ namespace Blazor.Extensions.Logging
 
             if (this.exception != null)
             {
-                logObject.Exception = this.exception.ToString();
+                logObject.Exception = this.exception.ToString ();
             }
 
-#if !DESKTOP_BUILD
-            return Newtonsoft.Json.JsonConvert.SerializeObject(logObject);
-#else
-            return JsonConvert.SerializeObject(logObject, new JsonSerializerSettings
-            {
-                Formatting = Formatting.Indented,
-                Converters = new[] { new StringEnumConverter(true) }
-            });
-#endif
+            return JsonSerializer.Serialize(logObject, jsonOptions);
         }
 
-        private bool IsDataEnumerable(object data)
+        private bool IsDataEnumerable (object data)
         {
             if (data == null || data is string)
             {
