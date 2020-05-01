@@ -9,7 +9,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        forecasts = await Http.GetJsonAsync<WeatherForecast[]>("weather.json");
+        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("weather.json");
 
         logger.LogTrace("Trace: Forecast");
         logger.LogDebug("Debug: Forecast");
@@ -25,7 +25,7 @@
     {
         public DateTime Date { get; set; }
         public int TemperatureC { get; set; }
-        public int TemperatureF { get; set; }
         public string Summary { get; set; }
+        public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
     }
 }

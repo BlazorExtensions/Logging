@@ -4,15 +4,21 @@
     <Authors>Blazor Extensions Contributors</Authors>
     <Product>Blazor Extensions</Product>
     <Copyright>(c) Blazor Extensions Contributors. All rights reserved.</Copyright>
-    <PackageLicenseUrl>https://github.com/BlazorExtensions/Logging#license</PackageLicenseUrl>
+    <PackageLicense>LICENSE</PackageLicense>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/BlazorExtensions/Logging</PackageProjectUrl>
-    <PackageIconUrl>https://avatars2.githubusercontent.com/u/38994076?s%3D128%26v%3D4</PackageIconUrl>
+    <PackageIcon>BlazorExtensions.png</PackageIcon>
     <PackageTags>Microsoft ASP.NET Core Blazor Extensions Logging</PackageTags>
     <PackageReleaseNotes></PackageReleaseNotes>
     <RepositoryUrl>https://github.com/BlazorExtensions/Logging</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <IncludeSymbols>true</IncludeSymbols>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="BlazorExtensions.png" Pack="true" PackagePath=""/>
+    <None Include="../../LICENSE" Pack="true" PackagePath=""/>
+  </ItemGroup>
 
   <!-- Common compile parameters -->
   <PropertyGroup>
@@ -24,14 +30,14 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <TestProjectTargetFramework>netstandard2.0</TestProjectTargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <TestProjectTargetFramework>netstandard2.1</TestProjectTargetFramework>
   </PropertyGroup>
 
   <!-- Versioning properties -->
   <PropertyGroup>
     <VersionPrefix Condition=" '$(VersionPrefix)'=='' ">3.1.0</VersionPrefix>
-    <VersionSuffix Condition=" '$(VersionSuffix)'=='' ">preview1-014459</VersionSuffix>
+    <VersionSuffix Condition=" '$(VersionSuffix)'=='' ">rc1-020501</VersionSuffix>
   </PropertyGroup>
 
   <Choose>

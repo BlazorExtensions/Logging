@@ -40,16 +40,20 @@ Some of the log levels are not available as distinct methods in the browser's de
 
 ## Setup
 
-The following snippet shows how to setup the browser console logger by registering it for dependency injection in the ```Startup.cs``` of the application.
+The following snippet shows how to setup the browser console logger by registering it for dependency injection in the ```Program.cs``` of the application.
 
 ```c#
-public void ConfigureServices(IServiceCollection services)
-{
-    services.AddLogging(builder => builder
-        .AddBrowserConsole() // Add Blazor.Extensions.Logging.BrowserConsoleLogger
-        .SetMinimumLevel(LogLevel.Trace)
-    );
-}
+// Add Blazor.Extensions.Logging.BrowserConsoleLogger
+builder.Services.AddLogging(builder => builder
+    .AddBrowserConsole()
+    .SetMinimumLevel(LogLevel.Trace)
+);
+```
+
+Add the ```script``` tag to ```wwwroot/index.html```.
+
+```html
+<script src="_content/Blazor.Extensions.Logging/blazor.extensions.logging.js" defer></script>
 ```
 
 ## Usage
