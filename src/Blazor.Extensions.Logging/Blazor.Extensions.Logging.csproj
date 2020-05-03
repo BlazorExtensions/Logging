@@ -11,7 +11,6 @@
     <RazorLangVersion>3.0</RazorLangVersion>
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
     <PackageId>Blazor.Extensions.Logging</PackageId>
-    <PackageVersion>3.1.0-rc1-020501</PackageVersion>
   </PropertyGroup>
 
   <PropertyGroup>

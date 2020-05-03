@@ -35,10 +35,10 @@
   </PropertyGroup>
 
   <!-- Versioning properties -->
-  <PropertyGroup>
+  <!-- <PropertyGroup>
     <VersionPrefix Condition=" '$(VersionPrefix)'=='' ">3.1.0</VersionPrefix>
     <VersionSuffix Condition=" '$(VersionSuffix)'=='' ">rc1-020501</VersionSuffix>
-  </PropertyGroup>
+  </PropertyGroup> -->
 
   <Choose>
     <When Condition="'$(OfficialBuild)' != 'true'">
