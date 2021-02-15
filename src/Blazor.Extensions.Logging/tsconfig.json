@@ -3,18 +3,15 @@
     "noImplicitAny": true,
     "noEmitOnError": true,
     "removeComments": true,
-    "sourceMap": true,
+    "sourceMap": false,
     "target": "es6",
-    "module": "commonjs",
-    "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "strict": true,
     "alwaysStrict": true,
-    "preserveConstEnums": true
+    "preserveConstEnums": true,
+    "outDir": "wwwroot"
   },
   "include": [
-    "src"
+    "Client"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "compileOnSave": true
 }

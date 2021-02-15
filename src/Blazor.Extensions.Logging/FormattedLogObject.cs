@@ -6,7 +6,7 @@ using System.Text.Json.Serialization;
 
 namespace Blazor.Extensions.Logging
 {
-    internal class FormattedLogObject
+    public class FormattedLogObject
     {
         private static readonly JsonSerializerOptions jsonOptions;
 
@@ -19,10 +19,11 @@ namespace Blazor.Extensions.Logging
         {
             jsonOptions = new JsonSerializerOptions
             {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
 #if DEBUG
-            WriteIndented = true
+                WriteIndented = true
 #else
-            WriteIndented = false
+                WriteIndented = false
 #endif
             };
 
