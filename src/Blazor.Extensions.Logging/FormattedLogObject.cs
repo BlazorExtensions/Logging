@@ -6,7 +6,7 @@ using System.Text.Json.Serialization;
 
 namespace Blazor.Extensions.Logging
 {
-    internal class FormattedLogObject
+    public class FormattedLogObject
     {
         private static readonly JsonSerializerOptions jsonOptions;
 
