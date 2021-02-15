@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <PropertyGroup>
-    <DefaultItemExcludes>$(DefaultItemExcludes);Client/*</DefaultItemExcludes>
+    <DefaultItemExcludes>$(DefaultItemExcludes);Client/*;tsconfig.json</DefaultItemExcludes>
   </PropertyGroup>
 
   <ItemGroup>
