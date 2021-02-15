@@ -50,12 +50,6 @@ builder.Services.AddLogging(builder => builder
 );
 ```
 
-Add the ```script``` tag to ```wwwroot/index.html```.
-
-```html
-<script src="_content/Blazor.Extensions.Logging/blazor.extensions.logging.js" defer></script>
-```
-
 ## Usage
 
 The following snippet shows how to consume the logger in a Blazor component.

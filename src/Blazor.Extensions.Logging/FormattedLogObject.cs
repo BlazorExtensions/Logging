@@ -19,10 +19,11 @@ namespace Blazor.Extensions.Logging
         {
             jsonOptions = new JsonSerializerOptions
             {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
 #if DEBUG
-            WriteIndented = true
+                WriteIndented = true
 #else
-            WriteIndented = false
+                WriteIndented = false
 #endif
             };
 

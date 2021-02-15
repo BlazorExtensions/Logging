@@ -6,7 +6,7 @@ using System.Collections.Concurrent;
 namespace Blazor.Extensions.Logging
 {
     [ProviderAlias("BrowserConsole")]
-    internal class BrowserConsoleLoggerProvider : ILoggerProvider
+    public class BrowserConsoleLoggerProvider : ILoggerProvider
     {
         private static readonly Func<string, LogLevel, bool> TrueFilter = (cat, level) => true;
 

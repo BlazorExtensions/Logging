@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 
 using Microsoft.Extensions.Logging;
 using Microsoft.JSInterop;
@@ -7,35 +8,42 @@ namespace Blazor.Extensions.Logging
 {
     internal class BrowserConsoleLogger<T> : BrowserConsoleLogger, ILogger<T>
     {
-        public BrowserConsoleLogger (IJSRuntime runtime) : base (runtime, typeof (T).FullName, null)
+        public BrowserConsoleLogger (IJSRuntime jsRuntime) : base (jsRuntime, typeof (T).FullName, null)
         {
-
         }
 
-        public BrowserConsoleLogger (IJSRuntime runtime, Func<string, LogLevel, bool> filter) : base (runtime, typeof (T).FullName, filter)
+        public BrowserConsoleLogger (IJSRuntime jsRuntime, Func<string, LogLevel, bool> filter) : base (jsRuntime, typeof (T).FullName, filter)
         {
 
         }
     }
 
-    internal class BrowserConsoleLogger : ILogger
+    internal class BrowserConsoleLogger : ILogger, IAsyncDisposable
     {
+        private const string LoggerFunctionName = "log";
+        private const string ScriptName = "./_content/Blazor.Extensions.Logging/BrowserConsoleLogger.js";
 
-        private const string LoggerFunctionName = "BlazorExtensions.Logging.BrowserConsoleLogger.Log";
-
-        private readonly IJSRuntime runtime;
+        private readonly Lazy<Task<IJSObjectReference>> moduleTask;
+        private IJSObjectReference module;
         private Func<string, LogLevel, bool> filter;
 
-        public BrowserConsoleLogger (IJSRuntime runtime, string name, Func<string, LogLevel, bool> filter)
+        public BrowserConsoleLogger (IJSRuntime jsRuntime, string name, Func<string, LogLevel, bool> filter)
         {
-            this.runtime = runtime;
             this.filter = filter ?? ((category, logLevel) => true);
             this.Name = name ??
                 throw new ArgumentNullException (nameof (name));
+
+            this.moduleTask = new (() => jsRuntime.InvokeAsync<IJSObjectReference>(
+                "import", ScriptName).AsTask());
         }
 
         public async void Log<TState> (LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
         {
+            if (this.module == null)
+            {
+                this.module = await moduleTask.Value;
+            }
+
             if (!this.IsEnabled (logLevel))
             {
                 return;
@@ -55,7 +63,7 @@ namespace Blazor.Extensions.Logging
                 message = internalFormatter.ToString ();
             }
 
-            await this.runtime.InvokeAsync<object> (LoggerFunctionName, message);
+            await this.module.InvokeAsync<object> (LoggerFunctionName, message);
         }
 
         public bool IsEnabled (LogLevel logLevel)
@@ -81,5 +89,15 @@ namespace Blazor.Extensions.Logging
         public string Name { get; }
 
         public IDisposable BeginScope<TState> (TState state) => null;
+
+        public async ValueTask DisposeAsync()
+        {
+            if (moduleTask.IsValueCreated)
+            {
+                var module = await moduleTask.Value;
+
+                await module.DisposeAsync();
+            }
+        }
     }
 }

@@ -30,8 +30,8 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
-    <TestProjectTargetFramework>netstandard2.1</TestProjectTargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
+    <TestProjectTargetFramework>net5.0</TestProjectTargetFramework>
   </PropertyGroup>
 
   <!-- Versioning properties -->
