@@ -9,6 +9,7 @@
     <TargetFramework>net5.0</TargetFramework>
     <IsPackable>true</IsPackable>
     <PackageId>Blazor.Extensions.Logging</PackageId>
+    <TypescriptOutDir>wwwroot</TypescriptOutDir>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,11 +17,22 @@
   </ItemGroup>
 
   <PropertyGroup>
-    <DefaultItemExcludes>$(DefaultItemExcludes);Client/*;tsconfig.json</DefaultItemExcludes>
+    <DefaultItemExcludes>$(DefaultItemExcludes);Client/*;</DefaultItemExcludes>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <ResolveCurrentProjectStaticWebAssetsInputsDependsOn>
+      CompileTypeScript;
+      $(ResolveCurrentProjectStaticWebAssetsInputs)
+    </ResolveCurrentProjectStaticWebAssetsInputsDependsOn>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="5.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="tsconfig.json"/>
   </ItemGroup>
 
   <ItemGroup>
