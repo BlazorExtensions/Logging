@@ -9,7 +9,6 @@
     <TargetFramework>net5.0</TargetFramework>
     <IsPackable>true</IsPackable>
     <PackageId>Blazor.Extensions.Logging</PackageId>
-    <TypescriptOutDir>wwwroot</TypescriptOutDir>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,23 +16,16 @@
   </ItemGroup>
 
   <PropertyGroup>
-    <DefaultItemExcludes>$(DefaultItemExcludes);Client/*;</DefaultItemExcludes>
+    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+    <TypeScriptNoImplicitAny>true</TypeScriptNoImplicitAny>
+    <TypeScriptRemoveComments>true</TypeScriptRemoveComments>
+    <TypeScriptSourceMap>false</TypeScriptSourceMap>
+    <TypeScriptTarget>es6</TypeScriptTarget>
+    <TypeScriptStrict>true</TypeScriptStrict>
+    <TypeScriptAlwaysStrict>true</TypeScriptAlwaysStrict>
+    <TypeScriptPreserveConstEnums>true</TypeScriptPreserveConstEnums>
+    <TypescriptOutDir>wwwroot</TypescriptOutDir>
   </PropertyGroup>
-
-  <PropertyGroup>
-    <ResolveCurrentProjectStaticWebAssetsInputsDependsOn>
-      CompileTypeScript;
-      $(ResolveCurrentProjectStaticWebAssetsInputs)
-    </ResolveCurrentProjectStaticWebAssetsInputsDependsOn>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="5.0.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="tsconfig.json"/>
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="5.0.3" />
