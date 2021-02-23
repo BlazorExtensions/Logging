@@ -1,4 +1,6 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project>
+
+  <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk.Razor" />
 
   <PropertyGroup>
     <Title>Blazor Extensions Logging</Title>
@@ -36,4 +38,14 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
+
+  <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk.Razor" />
+
+  <!--
+    Disable this target from the Microsoft.Typescript.MSBuild package to make
+    sure JS files are not showing up in projects consuming Logging package in
+    VS 2019
+  -->
+  <Target Name="GetTypeScriptOutputForPublishing" />
+
 </Project>
