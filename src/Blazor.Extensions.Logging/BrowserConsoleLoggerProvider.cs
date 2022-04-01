@@ -2,6 +2,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.JSInterop;
 using System;
 using System.Collections.Concurrent;
+using Microsoft.AspNetCore.Components;
 
 namespace Blazor.Extensions.Logging
 {
@@ -12,11 +13,13 @@ namespace Blazor.Extensions.Logging
 
         private readonly Func<string, LogLevel, bool> filter;
         private readonly IJSRuntime runtime;
+        private readonly NavigationManager navigation;
         private ConcurrentDictionary<string, BrowserConsoleLogger> loggers;
 
-        public BrowserConsoleLoggerProvider(IJSRuntime runtime)
+        public BrowserConsoleLoggerProvider(IJSRuntime runtime, NavigationManager navigation)
         {
             this.runtime = runtime;
+            this.navigation = navigation;
         }
 
         public BrowserConsoleLoggerProvider(Func<string, LogLevel, bool> filter)
@@ -41,7 +44,7 @@ namespace Blazor.Extensions.Logging
 
         public void Dispose() => this.loggers?.Clear();
 
-        private BrowserConsoleLogger CreateLoggerImplementation(string name) => new BrowserConsoleLogger(this.runtime, name, this.GetFilter(name));
+        private BrowserConsoleLogger CreateLoggerImplementation(string name) => new BrowserConsoleLogger(this.runtime, navigation, name, this.GetFilter(name));
 
         private Func<string, LogLevel, bool> GetFilter(string name)
         {
