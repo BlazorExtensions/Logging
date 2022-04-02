@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 
+using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Logging;
 using Microsoft.JSInterop;
 
@@ -8,11 +9,11 @@ namespace Blazor.Extensions.Logging
 {
     internal class BrowserConsoleLogger<T> : BrowserConsoleLogger, ILogger<T>
     {
-        public BrowserConsoleLogger (IJSRuntime jsRuntime) : base (jsRuntime, typeof (T).FullName, null)
+        public BrowserConsoleLogger (IJSRuntime jsRuntime, NavigationManager navigationManager) : base (jsRuntime, navigationManager, typeof (T).FullName, null)
         {
         }
 
-        public BrowserConsoleLogger (IJSRuntime jsRuntime, Func<string, LogLevel, bool> filter) : base (jsRuntime, typeof (T).FullName, filter)
+        public BrowserConsoleLogger (IJSRuntime jsRuntime, NavigationManager navigationManager, Func<string, LogLevel, bool> filter) : base (jsRuntime, navigationManager, typeof (T).FullName, filter)
         {
 
         }
@@ -21,20 +22,20 @@ namespace Blazor.Extensions.Logging
     internal class BrowserConsoleLogger : ILogger, IAsyncDisposable
     {
         private const string LoggerFunctionName = "log";
-        private const string ScriptName = "./_content/Blazor.Extensions.Logging/BrowserConsoleLogger.js";
+        private const string ScriptName = "_content/Blazor.Extensions.Logging/BrowserConsoleLogger.js";
 
         private readonly Lazy<Task<IJSObjectReference>> moduleTask;
         private IJSObjectReference module;
         private Func<string, LogLevel, bool> filter;
 
-        public BrowserConsoleLogger (IJSRuntime jsRuntime, string name, Func<string, LogLevel, bool> filter)
+        public BrowserConsoleLogger (IJSRuntime jsRuntime, NavigationManager navigationManager, string name, Func<string, LogLevel, bool> filter)
         {
             this.filter = filter ?? ((category, logLevel) => true);
             this.Name = name ??
                 throw new ArgumentNullException (nameof (name));
 
             this.moduleTask = new (() => jsRuntime.InvokeAsync<IJSObjectReference>(
-                "import", ScriptName).AsTask());
+                "import", navigationManager.ToAbsoluteUri(ScriptName)).AsTask());
         }
 
         public async void Log<TState> (LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
